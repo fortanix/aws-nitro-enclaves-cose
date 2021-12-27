@@ -1,4 +1,3 @@
-#![deny(missing_docs)]
 #![deny(warnings)]
 
 //! This library aims to provide safe Rust implementations for COSE, using

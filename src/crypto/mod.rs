@@ -19,12 +19,21 @@ mod crypto_openssl;
 #[cfg(feature = "crypto_openssl")]
 pub use crypto_openssl::*;
 
-#[cfg(not(any(feature = "crypto_openssl")))]
+#[cfg(feature = "crypto_mbedtls")]
+mod crypto_mbedtls;
+#[cfg(feature = "crypto_mbedtls")]
+pub use crypto_mbedtls::*;
+
+#[cfg(not(any(feature = "crypto_openssl", feature = "crypto_mbedtls")))]
 compile_error!("Please enable a crypto implementation");
 
 // Import the different shipped signing crypto
 #[cfg(feature = "key_openssl_pkey")]
 mod openssl_pkey;
+
+// Import the different shipped signing crypto
+#[cfg(feature = "key_mbedtls_pkey")]
+mod mbedtls_pkey;
 
 /// A public key that can verify an existing signature
 pub trait SigningPublicKey {

@@ -25,7 +25,7 @@ pub enum SignatureAlgorithm {
 }
 
 impl SignatureAlgorithm {
-    pub(crate) fn key_length(&self) -> usize {
+    pub fn key_length(&self) -> usize {
         match self {
             SignatureAlgorithm::ES256 => 32,
             SignatureAlgorithm::ES384 => 48,
@@ -34,7 +34,7 @@ impl SignatureAlgorithm {
         }
     }
 
-    pub(crate) fn suggested_hash_function(&self) -> HashFunction {
+    pub fn suggested_hash_function(&self) -> HashFunction {
         match self {
             SignatureAlgorithm::ES256 => HashFunction::Sha256,
             SignatureAlgorithm::ES384 => HashFunction::Sha384,
@@ -367,7 +367,7 @@ impl CoseSign1 {
                 .as_bytes()
                 .map_err(CoseError::SerializationError)?,
         )
-        .map_err(CoseError::CryptoError)?;
+        .map_err(CoseError::SignatureError)?;
 
         let signature = key.sign(struct_digest.as_ref())?;
 
@@ -477,7 +477,7 @@ impl CoseSign1 {
                 .as_bytes()
                 .map_err(CoseError::SerializationError)?,
         )
-        .map_err(CoseError::CryptoError)?;
+        .map_err(CoseError::SignatureError)?;
 
         key.verify(struct_digest.as_ref(), &self.signature)
     }
