@@ -17,7 +17,7 @@ serde_repr = "0.1"
 serde_bytes = "0.11"
 serde_with = "1.5"
 openssl = { version = "0.10", optional = true }
-mbedtls8 = { git = "https://github.com/fortanix/rust-mbedtls", package = "mbedtls", branch = "acruceru/port-async-support", features = ["rdrand", "std", "async-rt", "dsa"], optional = true, default-features = false  }
+mbedtls8 = { git = "https://github.com/fortanix/rust-mbedtls", package = "mbedtls", branch = "acruceru/port-async-support", features = ["rdrand", "std", "dsa"], optional = true, default-features = false  }
 
 [dependencies.serde]
 version = "1.0"
@@ -32,3 +32,6 @@ crypto_mbedtls = ["key_mbedtls_pkey", "mbedtls8"]
 key_mbedtls_pkey = ["mbedtls8"]
 
 migration_mode=["mbedtls8/migration_mode"]
+
+[patch.crates-io]
+libc  = { git = "https://github.com/fortanix/libc.git", branch = "fortanixvme" }
