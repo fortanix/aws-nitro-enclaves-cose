@@ -15,7 +15,7 @@ serde_repr = "0.1"
 serde_bytes = "0.11"
 serde_with = { version = "1.5", default_features = false }
 openssl = "0.10"
-tss-esapi = { version = "6.1", optional = true }
+tss-esapi = { version = "7.1", optional = true }
 
 [dependencies.serde]
 version = "1.0"
