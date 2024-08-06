@@ -1,5 +1,6 @@
 //! COSE Signing
 
+use std::fmt;
 use std::str::FromStr;
 
 use openssl::hash::{hash, MessageDigest};
@@ -60,14 +61,13 @@ impl FromStr for SignatureAlgorithm {
     }
 }
 
-impl ToString for SignatureAlgorithm {
-    fn to_string(&self) -> String {
+impl fmt::Display for SignatureAlgorithm {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            SignatureAlgorithm::ES256 => "ES256",
-            SignatureAlgorithm::ES384 => "ES384",
-            SignatureAlgorithm::ES512 => "ES512",
+            SignatureAlgorithm::ES256 => write!(f, "ES256"),
+            SignatureAlgorithm::ES384 => write!(f, "ES384"),
+            SignatureAlgorithm::ES512 => write!(f, "ES512"),
         }
-        .to_string()
     }
 }
 
